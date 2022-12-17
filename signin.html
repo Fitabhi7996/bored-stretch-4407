@@ -34,9 +34,10 @@
         <div>New to Nordstrom? Create an account</div>
         <br>
         <b>Email</b>
-        <input type="text" id="name" required />
-        <br />
+        <input type="text" id="email" required />
+        <br>
         <b>Password</b>
+      </br>
         <input type="password" id="password" />
         <br />
         <p>Forget password?</p>
@@ -46,28 +47,25 @@
         </br >
         <div>By signing in to your account, you agree to our Privacy Policy and Terms & Conditions.</div>
         </br>
-        <button>Sign In</button>
+        <button id="signin">Sign In</button>
       </form>
     </div>
   </body>
 </html>
 <script>
-  let loginBtn = document.querySelector("div>button:nth-child(2)");
+  let loginBtn = document.querySelector("#signin");
   let signUpBtn = document.querySelector("div>button:nth-child(1)");
-  let signIn = document.querySelector("#signIn");
   let signUp = document.querySelector("#signUp");
 
   // we need to catch the users data file from localstorage.
   let users = JSON.parse(localStorage.getItem("usersData")) || [];
 
   // by default We want the signIn form to be hidden.
-  signIn.style.display = "none";
 
   loginBtn.addEventListener("click", function () {
     signUp.style.display = "none";
     // we can use any display property to show the element in place of block (grid, flex,inline, block)
     // generally we use block because we don't want to change our display style.
-    signIn.style.display = "block";
     //    we change the document title using title method
     document.title = "Sign In";
   });
@@ -111,40 +109,10 @@
 
         // to reset all the input fields of a form we can use reset() method
         signUp.reset();
-      }
-    }
-  });
-
-  signIn.addEventListener("submit", function (event) {
-    event.preventDefault();
-    let count = 0;
-    // we are creating a temp var to store user who is trying to login
-    let temp;
-    // we are checking whether the user is registered or not
-    users.forEach(function (el) {
-      if (el.email === signIn.email1.value) {
-        count++;
-        // when count is incremented or we found user, we are storing the user data;
-        temp = el;
-        // we are storing the user in our local storage so that we can access user data from different pages
-        localStorage.setItem("loggedUser", JSON.stringify(el));
-      }
-    });
-    // if we didn't find any user we alert
-    if (count == 0) {
-      alert("user not registered!");
-    }
-    // if we find user we check the password
-    else {
-      // we check the temp password with form password
-      if (temp.password != signIn.password1.value) {
-        alert("wrong password");
-      } else {
-        alert("login successful!");
-        // we can use n number of methods to change the page. here we are using assign() method
-        // window.location.assign('url')
         window.location.assign("./index.html");
       }
     }
   });
+
+
 </script>
